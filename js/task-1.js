@@ -1,19 +1,30 @@
 "use strict";
+// Напиши функцію isEnoughCapacity(products, containerSize), яка обчислює, чи помістяться всі товари в контейнер при пакуванні.
 
-// Напиши функцію slugify(title), яка приймає заголовок статті, параметр title і повертає slug, створений із цього рядка.
+// Функція оголошує два параметри:
 
-// Значенням параметра title будуть рядки, слова яких розділені лише пробілами.
-// Усі символи slug повинні бути в нижньому регістрі.
-// Усі слова slug повинні бути розділені тире.
+// products — об’єкт, у якому ключі містять назви товарів, а їхні значення — кількість цих товарів. Наприклад, { apples: 2, grapes: 4 }.
+// containerSize — число, максимальна кількість одиниць товарів, яку в себе може вмістити контейнер.
+// Функція має повернути результат перевірки, чи помістяться всі товари в контейнер.
+// Тобто порахувати загальну кількість товарів в об’єкті products і повернути true, якщо вона менше або дорівнює containerSize, і false, якщо ні.
 
-function slugify(title) {
-  const toLowerTitle = title.toLowerCase(),
-    sliceTitle = toLowerTitle.split(" "),
-    slugTitle = sliceTitle.join("-");
-  return slugTitle;
+function isEnoughCapacity(products, containerSize) {
+  let totalSize = 0;
+  const productsValue = Object.values(products);
+  for (const product of productsValue) {
+    totalSize = totalSize + product;
+  }
+  if (totalSize <= containerSize) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
-console.log(slugify("Arrays for begginers")); // "arrays-for-begginers"
-console.log(slugify("English for developer")); // "english-for-developer"
-console.log(slugify("Ten secrets of JavaScript")); // "ten-secrets-of-javascript"
-console.log(slugify("How to become a JUNIOR developer in TWO WEEKS")); // "how-to-become-a-junior-developer-in-two-weeks"
+console.log(isEnoughCapacity({ apples: 2, grapes: 3, carrots: 1 }, 8)); // true
+
+console.log(isEnoughCapacity({ apples: 4, grapes: 6, lime: 16 }, 12)); // false
+
+console.log(isEnoughCapacity({ apples: 1, lime: 5, tomatoes: 3 }, 14)); // true
+
+console.log(isEnoughCapacity({ apples: 18, potatoes: 5, oranges: 2 }, 7)); // false
